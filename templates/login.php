@@ -4,9 +4,6 @@
         padding-left:35%;
         padding-right:35%;
     }
-    .btn{
-        alignment:center;
-    }
     </style>
 </head>
 <?php include('templates/header.php'); ?>
