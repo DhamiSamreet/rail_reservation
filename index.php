@@ -1,8 +1,8 @@
 <?php
-
+require_once "config.php";
 ?>
 
 <!DOCTYPE html>
 <html>
-    <?php include('templates/login.php'); ?>
+    <?php include('login.php'); ?>
 </html>
