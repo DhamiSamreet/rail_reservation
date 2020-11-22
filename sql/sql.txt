@@ -1,0 +1,39 @@
+CREATE TABLE booking_agent (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    creditcard INT NOT NULL,
+    address VARCHAR(500) NOT NULL, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tickets(
+pnr INT NOT NULL PRIMARY KEY,
+created DATETIME DEFAULT CURRENT_TIMESTAMP,
+trainno INT NOT NULL,
+num_pass INT DEFAULT 0,
+booked_by INT,
+FOREIGN KEY(booked_by) REFERENCES booking_agent(id)
+);
+
+
+CREATE TABLE booking_system (
+trainno INT NOT NULL,
+date DATETIME NOT NULL DEFAULT current_timestamp(),
+num_ac INT NOT NULL,
+num_sl INT NOT NULL,
+num_seats_ac INT DEFAULT 0,
+num_seats_sl INT DEFAULT 0,
+PRIMARY KEY (`trainno`,`date`)
+) ;
+
+
+CREATE TABLE passengers(
+pid INT NOT NULL,
+name VARCHAR(100) NOT NULL,
+berthno INT NOT NULL,
+coachtype varchar(10) NOT NULL,
+pnr INT NOT NULL,
+PRIMARY KEY(pid,pnr),
+FOREIGN KEY(pnr) REFERENCES tickets(pnr)
+);

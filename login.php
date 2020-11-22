@@ -61,17 +61,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
-                            
-                            // Redirect user to welcome page
-                            header("location: home.php");
+                            $_SESSION["username"] = $username;   
+                            echo $username;                         
+                            if(strcmp($username,"admin")!=0){
+                                header("location: home.php");
+                            }
+                            else{
+                                header("location: admin.php");
+                            }
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";
                         }
                     }
                 } else{
-                    // Display an error message if username doesn't exist
                     $username_err = "No account found with that username.";
                 }
             } else{

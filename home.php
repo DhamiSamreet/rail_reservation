@@ -6,25 +6,30 @@
      exit;
  }
  ?>
+ <head>
+ <style type="text/css">
+    .form-group{
+        padding-left:35%;
+        padding-right:35%;
+    }
+    </style>
+</head>
 <?php include('header.php'); ?>
 <div class="text-center">
-<h1 alignment="center"> Available Trains </h1>
-<ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cras justo odio
-    <span class="badge badge-primary badge-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Dapibus ac facilisis in
-    <span class="badge badge-primary badge-pill">2</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Morbi leo risus
-    <span class="badge badge-primary badge-pill">1</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Morbi leo risus
-    <span class="badge badge-primary badge-pill">1</span>
-  </li>
-</ul>
+  <h2>Select your travelling date</h2>
+  <form class="form_class" action="" method="">
+  <div class="form-group">
+    <label>Choose Your Date of Journey</label>
+    <input type="date" name="doj" class="form-control" value="">
+    <small id="emailHelp" class="form-text text-muted">something can be printed</small>
+  </div>
+  <div class="form-group">
+    <label>Number of Passengers</label>
+    <input type="number" name="no_of_passengers" class="form-control" value="">
+    <small id="emailHelp" class="form-text text-muted">something can be printed</small>
+  </div>
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
 </div>
