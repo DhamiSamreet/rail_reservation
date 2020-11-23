@@ -3,7 +3,7 @@
 	session_start();
 	include('config.php');
 
-	$trainno='';
+	$train_no='';
 	$num_pass='';
 	$date ='';
 	$res="";
@@ -14,16 +14,16 @@
 	// }
 
  	if(isset($_POST["submit"])){
- 		echo "CHECK\ndate = $date\ntrain_number = $train_no\nnumber of passengers = $num_pass\n";
+ 		//echo "CHECK\ndate = $date\ntrain_number = $train_no\nnumber of passengers = $num_pass\n";
  		$date 		= mysqli_real_escape_string($link,trim($_POST['doj']));
  		$train_no 	= mysqli_real_escape_string($link,trim($_POST['train_no']));
  		$num_pass	= mysqli_real_escape_string($link,trim($_POST['no_of_passengers']));
  		//query will take input from user about trainno and date and no_of_passengers and 
  		//return a table entry iff it had cummulative reaminging number of seats in either of the category AC or Sleeper class
- 		$sql = "SELECT * FROM booking_system where booking_system.trainno = $trainno and booking_system.date = $date and ((18*ac_coaches)-ac_seats>=$num_pass or (24*sl_coaches)-sl_seats>=$num_pass)";
+ 		$sql = "SELECT * FROM booking_system where booking_system.trainno = $train_no and booking_system.date = $date and ((18*ac_coaches)-ac_seats>=$num_pass or (24*sl_coaches)-sl_seats>=$num_pass)";
  		$result="";
  		
- 		echo "CHECK\ndate = $date\ntrain_number = $train_no\nnumber of passengers = $num_pass\n";
+ 		//echo "CHECK\ndate = $date\ntrain_number = $train_no\nnumber of passengers = $num_pass\n";
  		if($result=mysqli_query($link, $sql)){
  			$result=mysqli_query($link, $sql);
  			echo "QUERY RAN SUCCESSFULLY!!\n";
@@ -36,7 +36,7 @@
  	}
  	else{
  		//some error in giving input for searching trains
- 		echo "submit not set\n";
+ 		// echo "submit not set\n";
  	}
 
  ?>
@@ -69,8 +69,12 @@
 		<input type="number" name="no_of_passengers" class="form-control" value="">
 		<small id="emailHelp" class="form-text text-muted">something can be printed</small>
   	</div>
-  
-	<button type="submit" class="btn btn-primary">Submit</button>
+	
+
+	<div class="form-group">
+		<input type="submit" name="submit" class="btn btn-primary" value="Submit">
+  	</div>  
+	
 </div>
 </form>
 </div>
