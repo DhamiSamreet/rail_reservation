@@ -63,7 +63,7 @@ $result = mysqli_query($link, $sql1);
          echo 'errors in form';
      } else {
          // escape sql chars
-         $ac_seats-$no_of_ac_coaches*18;
+         $ac_seats=$no_of_ac_coaches*18;
          $sl_seats=$no_of_sl_coaches*24;
          $date = mysqli_real_escape_string($link, $_POST['dor']);
          $train = mysqli_real_escape_string($link, $_POST['train']);
