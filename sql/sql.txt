@@ -11,7 +11,7 @@ CREATE TABLE booking_agent (
     	password VARCHAR(255) NOT NULL,
    	creditcard INT NOT NULL,
     	address VARCHAR(500) NOT NULL, 
-    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 );
 
 
@@ -22,7 +22,9 @@ CREATE TABLE booking_system (
  	sl_coaches INT NOT NULL,
  	ac_seats INT DEFAULT 0,
 	sl_seats INT DEFAULT 0,
- 	PRIMARY KEY (trainno,date)
+ 	PRIMARY KEY (trainno,date),
+	FOREIGN KEY(trainno) REFERENCES trains(trainno)
+	
 ) ;
 
 CREATE TABLE tickets(
@@ -31,7 +33,8 @@ CREATE TABLE tickets(
    	trainno INT NOT NULL,
     	num_pass INT DEFAULT 0,
     	booked_by INT,
-    	FOREIGN KEY(booked_by) REFERENCES booking_agent(id)
+    	FOREIGN KEY(booked_by) REFERENCES booking_agent(id),
+	FOREIGN KEY(trainno) REFERENCES booking_system(trainno)
 );
 
 CREATE TABLE passengers(
