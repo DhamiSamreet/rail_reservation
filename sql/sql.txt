@@ -1,11 +1,12 @@
 CREATE TABLE trains (
 	trainno INT NOT NULL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL,
 	from_station VARCHAR(40) NOT NULL,
 	to_station VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE booking_agent (
-id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
  	username VARCHAR(100) NOT NULL,
     	password VARCHAR(255) NOT NULL,
    	creditcard INT NOT NULL,
@@ -13,13 +14,14 @@ id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+
 CREATE TABLE booking_system (
- 	trainno INT NOT NULL,
- 	date DATETIME NOT NULL DEFAULT current_timestamp(),
+	trainno INT NOT NULL,
+ 	date DATE NOT NULL DEFAULT current_date,
  	ac_coaches INT NOT NULL,
  	sl_coaches INT NOT NULL,
  	ac_seats INT DEFAULT 0,
-sl_seats INT DEFAULT 0,
+	sl_seats INT DEFAULT 0,
  	PRIMARY KEY (trainno,date)
 ) ;
 
@@ -44,4 +46,3 @@ CREATE TABLE passengers(
     	PRIMARY KEY(pid,pnr),
     	FOREIGN KEY(pnr) REFERENCES tickets(pnr)
 );
-
