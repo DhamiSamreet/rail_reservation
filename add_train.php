@@ -1,7 +1,12 @@
 <?php 
-	
-	include('config.php');
-
+	session_start();
+ 
+	// Check if the user is logged in, if not then redirect him to login page
+	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+		header("location: login.php");
+		exit;
+	}
+	require_once "config.php";
 	$train_no="";
 	$train_name="";
 	$from_st="";
@@ -15,7 +20,6 @@
 		$from_st 		= mysqli_real_escape_string($link,trim($_POST["fromSt"]));
 		$to_st 			= mysqli_real_escape_string($link,trim($_POST["toSt"]));
 		// echo "$train_no\n$train_name\n$from_st\n$to_st\n";
-	}
 
 	$query = "INSERT INTO trains(trainno,name,from_station,to_station) VALUES ('$train_no','$train_name','$from_st','$to_st');";
 	if(mysqli_query($link,$query)){
@@ -24,6 +28,7 @@
 	else{
 		echo "query error : ".mysqli_error($link);
 	}
+}
 
  ?>
 
@@ -32,7 +37,6 @@
  <html>
  <head>
  	<title>Add a new train</title>
- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <style type="text/css">
     .form-group{
         padding-left:35%;
@@ -42,24 +46,31 @@
     </style>
  </head>
  <body>
- 	<?php //include('header.php'); ?>
+ 	<?php include('header.php'); ?>
  	<section>
- 		<form method = "POST">
+	 <div class="text-center">
+	 <form class="form_class" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+	 <div class="form-group">
  			<label>Train No.</label>
- 			<input type="text" name="trainno">
- 			<br>
+ 			<input type="text" name="trainno" class="form-control">
+ 	</div>
+	 <div class="form-group">
  			<label>Train Name</label>
- 			<input type="text" name="name">
- 			<br>
+ 			<input type="text" name="name" class="form-control">
+ 	</div>
+	 <div class="form-group">
  			<label>Source</label>
- 			<input type="text" name="fromSt">
- 			<br>
+ 			<input type="text" name="fromSt" class="form-control">
+ 	</div>
+	 <div class="form-group">
  			<label>Destination</label>
- 			<input type="text" name="toSt">
+ 			<input type="text" name="toSt" class="form-control">
+			 </div>
  			<div>
- 				<input type="submit" name="submit" value="submit">
+ 				<input type="submit" name="submit" value="Submit" class="btn btn-primary">
  			</div>
  		</form>
+	</div>
  	</section>
  </body>
  </html> 
