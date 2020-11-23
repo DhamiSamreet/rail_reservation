@@ -1,39 +1,47 @@
+CREATE TABLE trains (
+	trainno INT NOT NULL PRIMARY KEY,
+	from_station VARCHAR(40) NOT NULL,
+	to_station VARCHAR(40) NOT NULL
+);
+
 CREATE TABLE booking_agent (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    creditcard INT NOT NULL,
-    address VARCHAR(500) NOT NULL, 
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ 	username VARCHAR(100) NOT NULL,
+    	password VARCHAR(255) NOT NULL,
+   	creditcard INT NOT NULL,
+    	address VARCHAR(500) NOT NULL, 
+    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE tickets(
-pnr INT NOT NULL PRIMARY KEY,
-created DATETIME DEFAULT CURRENT_TIMESTAMP,
-trainno INT NOT NULL,
-num_pass INT DEFAULT 0,
-booked_by INT,
-FOREIGN KEY(booked_by) REFERENCES booking_agent(id)
-);
-
 
 CREATE TABLE booking_system (
-trainno INT NOT NULL,
-date DATETIME NOT NULL DEFAULT current_timestamp(),
-num_ac INT NOT NULL,
-num_sl INT NOT NULL,
-num_seats_ac INT DEFAULT 0,
-num_seats_sl INT DEFAULT 0,
-PRIMARY KEY (trainno,date)
+ 	trainno INT NOT NULL,
+ 	date DATETIME NOT NULL DEFAULT current_timestamp(),
+ 	ac_coaches INT NOT NULL,
+ 	sl_coaches INT NOT NULL,
+ 	ac_seats INT DEFAULT 0,
+sl_seats INT DEFAULT 0,
+ 	PRIMARY KEY (trainno,date)
 ) ;
 
+CREATE TABLE tickets(
+    	pnr INT NOT NULL PRIMARY KEY,
+    	created DATETIME DEFAULT CURRENT_TIMESTAMP,
+   	trainno INT NOT NULL,
+    	num_pass INT DEFAULT 0,
+    	booked_by INT,
+    	FOREIGN KEY(booked_by) REFERENCES booking_agent(id)
+);
 
 CREATE TABLE passengers(
-pid INT NOT NULL,
-name VARCHAR(100) NOT NULL,
-berthno INT NOT NULL,
-coachtype varchar(10) NOT NULL,
-pnr INT NOT NULL,
-PRIMARY KEY(pid,pnr),
-FOREIGN KEY(pnr) REFERENCES tickets(pnr)
+    	pid INT NOT NULL,
+    	name VARCHAR(100) NOT NULL,
+    	gender char(1) NOT NULL,
+    	age INT NOT NULL,
+    	coachno VARCHAR(3) NOT NULL,
+    	berthno INT NOT NULL,
+    	berthtype CHAR(2) NOT NULL,
+    	pnr INT NOT NULL,
+    	PRIMARY KEY(pid,pnr),
+    	FOREIGN KEY(pnr) REFERENCES tickets(pnr)
 );
+
