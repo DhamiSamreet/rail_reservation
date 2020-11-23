@@ -104,7 +104,7 @@ $result = mysqli_query($link, $sql1);
     <select name="train" id="train" class="form-control">
         <option selected>Choose...</option>
         <?php foreach($trains as $train): ?>
-        <option value=<?php echo $train['trainno'] ?>><?php echo $train['name'] ?></option>
+        <option value=<?php echo $train['trainno'] ?>><?php echo $train['name']."(".$train['trainno'].")" ?></option>
         <?php endforeach; ?>
       </select>
       <small id="emailHelp" class="form-text text-muted"><?php echo  $errors['train'] ?></small>

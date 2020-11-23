@@ -49,3 +49,5 @@ CREATE TABLE passengers(
     	PRIMARY KEY(pid,pnr),
     	FOREIGN KEY(pnr) REFERENCES tickets(pnr)
 );
+
+///Add coach_type in tickets
