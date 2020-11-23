@@ -24,7 +24,7 @@ num_ac INT NOT NULL,
 num_sl INT NOT NULL,
 num_seats_ac INT DEFAULT 0,
 num_seats_sl INT DEFAULT 0,
-PRIMARY KEY (`trainno`,`date`)
+PRIMARY KEY (trainno,date)
 ) ;
 
 
