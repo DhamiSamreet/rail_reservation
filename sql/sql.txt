@@ -11,7 +11,7 @@ CREATE TABLE booking_agent (
     	password VARCHAR(255) NOT NULL,
    	creditcard INT NOT NULL,
     	address VARCHAR(500) NOT NULL, 
-    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 
