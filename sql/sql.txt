@@ -31,7 +31,9 @@ CREATE TABLE tickets(
     	pnr INT NOT NULL PRIMARY KEY,
     	created DATETIME DEFAULT CURRENT_TIMESTAMP,
    	trainno INT NOT NULL,
-    	num_pass INT DEFAULT 0,
+    	doj DATE NOT NULL,
+	coach_type VARCHAR(10) NOT NULL,
+	num_pass INT DEFAULT 0,
     	booked_by INT,
     	FOREIGN KEY(booked_by) REFERENCES booking_agent(id),
 	FOREIGN KEY(trainno) REFERENCES booking_system(trainno)
@@ -49,5 +51,3 @@ CREATE TABLE passengers(
     	PRIMARY KEY(pid,pnr),
     	FOREIGN KEY(pnr) REFERENCES tickets(pnr)
 );
-
-///Add coach_type in tickets
