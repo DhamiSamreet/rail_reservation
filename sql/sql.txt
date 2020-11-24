@@ -1,9 +1,9 @@
 NOTE: 
 1. Copy and paste the SQL QUERIES into mysql shell.
-2. USE following sql query to call the stored procedure insertPass
+2. USE following sql query to call the stored procedure insertPass and releaseTrain
 	CALL insertPass(pid,pnr,nname,gender,age,coachno,birthno,birthtype);
-
-3. remember to user proper DATATYPES and ORDER while passing arguments to stored procedure.
+	CALL releaseTrain(tno,date,num_ac,num_sl);
+3. remember to user proper DATATYPES and CORRECT ORDER while passing arguments to stored procedure.
 
 
 ********************************************************* NOTE: START OF SQL QUERIES *******************************************************************
@@ -51,7 +51,7 @@ CREATE TABLE tickets(
 );
 
 CREATE TABLE passengers(
-    	pid INT NOT NULL,
+    	pid INT NOT NULL AUTO_INCREMENT,
     	name VARCHAR(100) NOT NULL,
     	gender char(1) NOT NULL,
     	age INT NOT NULL,
@@ -89,6 +89,12 @@ Create Procedure insertPass(IN ppid INT,IN ppnr INT,IN nname VARCHAR(100), IN gg
 END $$
 DELIMITER ;
 
+
+DELIMITER $$
+Create Procedure releaseTrain(IN tno INT,IN doj DATE,IN num_ac INT, IN num_sl INT) BEGIN
+	INSERT INTO booking_system(trainno,date,ac_coaches,sl_coaches) VALUES(tno,doj,num_ac,num_sl);
+END $$
+DELIMITER ;
 
 
 ********************************** NOTE: END OF QUERIES *******************************************************************
