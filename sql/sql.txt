@@ -1,3 +1,14 @@
+NOTE: 
+1. Copy and paste the SQL QUERIES into mysql shell.
+2. USE following sql query to call the stored procedure insertPass
+	CALL insertPass(pid,pnr,nname,gender,age,coachno,birthno,birthtype);
+
+3. remember to user proper DATATYPES and ORDER while passing arguments to stored procedure.
+
+
+********************************************************* NOTE: START OF SQL QUERIES *******************************************************************
+
+
 CREATE TABLE trains (
 	trainno INT NOT NULL PRIMARY KEY,
 	name VARCHAR(40) NOT NULL,
@@ -51,3 +62,34 @@ CREATE TABLE passengers(
     	PRIMARY KEY(pid,pnr),
     	FOREIGN KEY(pnr) REFERENCES tickets(pnr)
 );
+
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER new_ticket AFTER INSERT on tickets
+FOR EACH ROW 
+BEGIN
+	DECLARE a,s,num_ac,num_sl INT;
+	SET a = (SELECT booking_system.ac_seats FROM booking_system WHERE booking_system.trainno = new.trainno AND booking_system.date=new.doj LIMIT 1);
+	SET s = (SELECT booking_system.sl_seats FROM booking_system WHERE booking_system.trainno = new.trainno AND booking_system.date=new.doj LIMIT 1);
+    	SET num_ac=(SELECT booking_system.ac_coaches FROM booking_system WHERE booking_system.trainno = new.trainno AND booking_system.date=new.doj LIMIT 1);
+    	SET num_sl=(SELECT booking_system.sl_coaches FROM booking_system WHERE booking_system.trainno = new.trainno AND booking_system.date=new.doj LIMIT 1);
+    	IF new.coach_type= 'ac' AND a+new.num_pass<=num_ac*18 THEN
+		UPDATE booking_system SET booking_system.ac_seats=booking_system.ac_seats+new.num_pass WHERE booking_system.trainno=new.trainno and booking_system.date=new.doj;
+	ELSEIF new.coach_type= 'sl' AND s+new.num_pass<=num_sl*24 THEN
+		UPDATE booking_system SET booking_system.sl_seats=booking_system.sl_seats+new.num_pass WHERE booking_system.trainno=new.trainno and booking_system.date=new.doj;
+    	END IF;
+END; $$ 
+DELIMITER ;
+
+
+
+DELIMITER $$
+Create Procedure insertPass(IN ppid INT,IN ppnr INT,IN nname VARCHAR(100), IN ggender CHAR(1), IN aage INT, IN coach VARCHAR(3), IN bno INT, IN btype CHAR(2)) BEGIN
+	INSERT INTO passengers(pid,name,gender,age,coachno,birthno,birthtype,pnr) VALUES(ppid,nname,ggender,aage,coach,bno,btype,ppnr);
+END $$
+DELIMITER ;
+
+
+
+********************************** NOTE: END OF QUERIES *******************************************************************
+
