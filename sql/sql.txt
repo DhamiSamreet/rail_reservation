@@ -85,7 +85,7 @@ DELIMITER ;
 
 DELIMITER $$
 Create Procedure insertPass(IN ppid INT,IN ppnr INT,IN nname VARCHAR(100), IN ggender CHAR(1), IN aage INT, IN coach VARCHAR(3), IN bno INT, IN btype CHAR(2)) BEGIN
-	INSERT INTO passengers(pid,name,gender,age,coachno,birthno,birthtype,pnr) VALUES(ppid,nname,ggender,aage,coach,bno,btype,ppnr);
+	INSERT INTO passengers(pid,name,gender,age,coachno,berthno,berthtype,pnr) VALUES(ppid,nname,ggender,aage,coach,bno,btype,ppnr);
 END $$
 DELIMITER ;
 

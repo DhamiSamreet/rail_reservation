@@ -6,6 +6,7 @@
 		header("location: login.php");
 		exit;
 	}
+	$success='';
 	require_once "config.php";
 	$train_no="";
 	$train_name="";
@@ -24,6 +25,7 @@
 	$query = "INSERT INTO trains(trainno,name,from_station,to_station) VALUES ('$train_no','$train_name','$from_st','$to_st');";
 	if(mysqli_query($link,$query)){
 		//continue, successful
+		$success='Train Added Successfully';
 	}
 	else{
 		echo "query error : ".mysqli_error($link);
@@ -49,6 +51,8 @@
  	<?php include('header.php'); ?>
  	<section>
 	 <div class="text-center">
+	 <h2><?php echo $success ?></h2>
+	 <h3>Add New Train</h3>
 	 <form class="form_class" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 	 <div class="form-group">
  			<label>Train No.</label>

@@ -24,7 +24,7 @@ require_once "config.php";
  		$num_pass	= mysqli_real_escape_string($link,trim($_POST['no_of_passengers']));
  		//query will take input from user about trainno and date and no_of_passengers and 
  		//return a table entry iff it had cummulative reaminging number of seats in either of the category AC or Sleeper class
- 		$sql = "SELECT * FROM booking_system where booking_system.trainno = $train_no and booking_system.date = '$date' and (ac_seats>=$num_pass or sl_seats>=$num_pass)";
+ 		$sql = "SELECT * FROM booking_system where booking_system.trainno = $train_no and booking_system.date = '$date' and ((18*ac_coaches)-ac_seats>=$num_pass or (24*sl_coaches)-sl_seats>=$num_pass);";
  		$result=mysqli_query($link, $sql);
      
  		//echo "CHECK\ndate = $date\ntrain_number = $train_no\nnumber of passengers = $num_pass\n";
@@ -35,6 +35,8 @@ require_once "config.php";
        $train_found=mysqli_fetch_row($result);
        print_r($train_found);
        $_SESSION['trainno']=$train_found[0];
+       $_SESSION['ac_coaches']=$train_found[2];
+       $_SESSION['sl_coaches']=$train_found[3];
        $_SESSION['ac_seats']=$train_found[4];
        $_SESSION['sl_seats']=$train_found[5];
       $_SESSION['date']=$date;
@@ -86,3 +88,4 @@ require_once "config.php";
 </div>
 </form>
 </div>
+<?php include('footer.php'); ?>

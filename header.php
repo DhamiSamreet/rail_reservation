@@ -25,9 +25,11 @@
         <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <?php } ?>
+      
       <li class="nav-item">
         <a class="nav-link" href="logout.php">Logout</a>
       </li>
+      <!--
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
@@ -41,7 +43,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+      </li> -->
     </ul>
     <span class="navbar-text">
     Welcome, <?php echo $_SESSION['username']; ?>

@@ -71,7 +71,7 @@ $result = mysqli_query($link, $sql1);
          $no_of_sl_coaches = mysqli_real_escape_string($link, $_POST['no_of_sl_coaches']);
 
          // create sql
-         $sql = "INSERT INTO booking_system(trainno,date,ac_coaches,sl_coaches,ac_seats,sl_seats) VALUES($train,'$date',$no_of_ac_coaches,$no_of_sl_coaches,$ac_seats,$sl_seats)";
+         $sql = "INSERT INTO booking_system(trainno,date,ac_coaches,sl_coaches,ac_seats,sl_seats) VALUES($train,'$date',$no_of_ac_coaches,$no_of_sl_coaches,0,0)";
 
          // save to db and check
          if(mysqli_query($link, $sql)){
