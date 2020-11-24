@@ -51,7 +51,7 @@ CREATE TABLE tickets(
 );
 
 CREATE TABLE passengers(
-    	pid INT NOT NULL,
+    	pid INT NOT NULL AUTO_INCREMENT,
     	name VARCHAR(100) NOT NULL,
     	gender char(1) NOT NULL,
     	age INT NOT NULL,
