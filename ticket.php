@@ -86,7 +86,7 @@ body
 h1
 {
   text-transform: uppercase;
-  font-weight: 900;
+  font-weight: 500;
   border-left: 10px solid #fec500;
   padding-left: 10px;
   margin-bottom: 30px
@@ -101,6 +101,7 @@ h1
   background-color: #fff;
   color: #989898;
   margin-bottom: 10px;
+  padding-top: 10px;
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   border-radius: 4px;
@@ -169,9 +170,9 @@ h1
 .card-cont
 {
   display: table-cell;
-  width: 75%;
-  font-size: 85%;
-  padding: 10px 10px 30px 50px
+  width: 95%;
+  font-size: 80%;
+  padding: 10px 10px 30px 10px
 }
 
 .card-cont h3
@@ -209,21 +210,6 @@ h1
   display: block
 }
 
-.card-cont a
-{
-  display: block;
-  text-decoration: none;
-  width: 80px;
-  height: 30px;
-  background-color: #D8DDE0;
-  color: #fff;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 2px;
-  position: absolute;
-  right: 10px;
-  bottom: 10px
-}
 
 .row:last-child .card:first-child .card-cont a
 {
@@ -257,10 +243,9 @@ h1
 </style>
 </head>
 <body>
-
-<section class="container">
 <?php include('header.php'); ?>
-<h1>Tickets</h1>
+
+ <h2>Your Ticket is generated</h2><br>
   <div>
     <article class="card1">
       <section class="date">
@@ -275,38 +260,14 @@ h1
          <i class="fa fa-calendar"></i>
          <time>
            <span> <?php echo "generated : $created " ?></span>
-           <?php foreach ($passengers as $passenger){?>
-            <span> <?php echo $passenger['name']."\t\t".$passenger['gender']."\t".$passenger['age']."\t".$passenger['coachno']."\t".$passenger['berthno']."\t".$passenger['berthtype']
-             ?></span>
-           <?php } ?>
-         </time>
-        </div>
-        <div class="even-info">
-          <i class="fa fa-map-marker"></i>
-          <p>
-            Always carry this ticket while travelling
-          </p>
-        </div>
-        <a href="#">tickets</a>
-      </section>
-    </article>
-  </div>
-</div>
-<div class="card text-center">
-  <div class="card-header">
-  <?php echo $tno."-".$trainname ?>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Journey Date: <?php echo "$day $month $year" ?></h5>
-    <p class="card-text">Ticket Generated: <?php echo $created ?></p>
-    <table class="table table-striped">
+           <table class="table table-striped">
   <thead>
     <tr>
     <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Gender</th>
       <th scope="col">Age</th>
-      <th scope="col">Coach No.</th>
+      <th scope="col">Coach</th>
       <th scope="col">Berth No.</th>
       <th scope="col">Berth Type</th>
     </tr>
@@ -325,12 +286,22 @@ h1
   <?php } ?>
     </tbody>
 </table>
-<a href="logout.php" class="btn btn-primary">Logout</a>
+    
+         </time>
+        </div>
+        <div class="even-info">
+          <i class="fa fa-map-marker"></i>
+          <p>
+            Always carry this ticket while travelling
+          </p>
+        </div>
+        
+      </section>
+    </article>
+  </div>
+</div>
+<div class="text-center">
+<a href="logout.php" class="btn btn-primary">Logout</a> 
 <a href="home.php" class="btn btn-primary">Book Another Ticket</a>
-<a href="#" class="btn btn-primary">Print</a>
-  </div>
-  <div class="card-footer text-muted">
-  Always carry this ticket while travelling
-  </div>
 </div>
 <?php include('footer.php'); ?>

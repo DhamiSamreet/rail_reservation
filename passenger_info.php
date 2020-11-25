@@ -70,6 +70,7 @@ function berthtypesl(int $num){
         $result=mysqli_query($link, $sql);
         $data=mysqli_fetch_assoc($result);
         $pnr=$data['total']+100001;
+        $_SESSION['pnr']=$pnr;
         if(strcmp($_SESSION['type'],'ac')==0){
             $ac_seats=$_SESSION['ac_seats'];
             $date=$_SESSION['date'];
@@ -79,11 +80,10 @@ function berthtypesl(int $num){
             if(mysqli_query($link, $sql1)){
                 echo "Ticket Made";
                 for ($x = 1; $x <= $no_of_passengers; $x++){
-                    $_SESSION['pnr']=$pnr;
                     $ac_seats++;
                     $coachno=(int)($ac_seats/18);
                     $coachno++;
-                    $berthno=($ac_seats%18)+1;
+                    $berthno=($ac_seats%18);
                     $berthtype=berthtypeac($berthno);
                     $name = mysqli_real_escape_string($link, $_POST['name'.$x]);
                     $age = mysqli_real_escape_string($link, $_POST['age'.$x]);
@@ -118,7 +118,7 @@ function berthtypesl(int $num){
                     $sl_seats++;
                     $coachno=(int)($sl_seats/24);
                     $coachno++;
-                    $berthno=($ac_seats%24)+1;
+                    $berthno=($sl_seats%24);
                     $berthtype=berthtypesl($berthno);
                     $name = mysqli_real_escape_string($link, $_POST['name'.$x]);
                     $age = mysqli_real_escape_string($link, $_POST['age'.$x]);
