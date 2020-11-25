@@ -1,3 +1,60 @@
+<?php 
+  session_start();
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+     header("location: login.php");
+  }
+  require_once "config.php";
+
+  
+
+  $tno = $_SESSION['trainno'];
+  $trainname="";
+  $doj = $_SESSION['date'];
+  $pnr = $_SESSION['pnr'];
+  $num_pass=$_SESSION['num_pass'];
+  $created = "";
+  $dtemp = strtotime($doj);
+  $day  = date('j',$dtemp);
+  $month= date('F',$dtemp);
+  $year = date('Y',$dtemp);
+
+
+
+  $sql1 = "SELECT name from trains where trainno = $tno;";
+  if($res1 = mysqli_query($link,$sql1)){
+    $trainname=  mysqli_fetch_all($res1,MYSQLI_ASSOC)[0]['name'];
+    // print_r($traindetails);
+    // $trainname=$traindetails[0]['name'];
+  }
+  
+  
+  $sql2 = "SELECT created from tickets where pnr = $pnr;";
+  if($res2 = mysqli_query($link,$sql2)){
+    $created = mysqli_fetch_all($res2,MYSQLI_ASSOC)[0]['created'];
+  }
+
+
+  $sql = "SELECT * FROM passengers where pnr=$pnr;";
+  $passengers = "";
+  if($res = mysqli_query($link,$sql)){
+    $passengers = mysqli_fetch_all($res,MYSQLI_ASSOC);
+    // foreach($passengers as $p){
+    //   print_r($p);
+    //   echo $p['gender'];
+    // }
+  }
+  else{
+    echo "query Error : ".mysqli_error($link);
+  }
+
+  //print_r($_SESSION);
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,26 +262,28 @@ h1
   <div class="row">
     <article class="card fl-left">
       <section class="date">
-        <time datetime="23th feb">
-          <span>23</span><span>feb</span>
+        <time datetime="doj">
+          <span><?php echo "$day" ?></span><span> <?php echo "$month $year" ?> </span>
         </time>
       </section>
       <section class="card-cont">
-        <small>dj khaled</small>
-        <h3>Superfast express</h3>
+        <small> <?php echo "train No. - $tno"; ?> </small>
+        <h3> <?php echo "$trainname"; ?></h3>
         <div class="even-date">
          <i class="fa fa-calendar"></i>
          <time>
-           <span>wednesday 28 december 2014</span>
-           <span>Passenger 1</span>
-           <span>Passenger 2</span>
-           <span>Passenger 3</span>
+           <span> <?php echo "generated : $created " ?></span>
+           <?php foreach ($passengers as $passenger){?>
+            <span> <?php echo $passenger['name']."\t\t".$passenger['gender']."\t".$passenger['age']."\t".$passenger['coachno']."\t".$passenger['berthno']."\t".$passenger['berthtype']
+             ?></span>
+           <?php } ?>
+           
          </time>
         </div>
         <div class="even-info">
           <i class="fa fa-map-marker"></i>
           <p>
-            nexen square for people australia, sydney
+            Always carry this ticket while travelling
           </p>
         </div>
         <a href="#">tickets</a>
