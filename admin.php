@@ -46,13 +46,13 @@ $result = mysqli_query($link, $sql1);
      }
 
      // check ingredients
-     if(empty($_POST['no_of_ac_coaches'])){
+     if(!isset($_POST['no_of_ac_coaches'])){
          $errors['no_of_ac_coaches'] = 'Number of AC coaches not given';
      } else{
          $no_of_ac_coaches = $_POST['no_of_ac_coaches'];
          echo $no_of_ac_coaches;
      }
-     if(empty($_POST['no_of_sl_coaches'])){
+     if(!isset($_POST['no_of_sl_coaches'])){
         $errors['no_of_sl_coaches'] = 'Number of sleeper coaches not given';
     } else{
         $no_of_sl_coaches = $_POST['no_of_sl_coaches'];
@@ -111,20 +111,21 @@ $result = mysqli_query($link, $sql1);
   </div>
   <div class="form-group">
     <label>Choose Your Date of Release</label>
-    <input type="date" name="dor" class="form-control" value="">
+    <input type="date" name="dor" class="form-control" value="" min="<?php echo date("Y-m-d") ?>">
     <small id="emailHelp" class="form-text text-muted"><?php echo  $errors['date'] ?></small>
   </div>
   <div class="form-group">
     <label>Number of AC coaches</label>
-    <input type="number" name="no_of_ac_coaches" class="form-control" value="1">
+    <input type="number" name="no_of_ac_coaches" class="form-control" value="0">
     <small id="emailHelp" class="form-text text-muted"><?php echo  $errors['no_of_ac_coaches'] ?></small>
   </div>
   <div class="form-group">
     <label>Number of sleeper coaches</label>
-    <input type="number" name="no_of_sl_coaches" class="form-control" value="1">
+    <input type="number" name="no_of_sl_coaches" class="form-control" value="0">
     <small id="emailHelp" class="form-text text-muted"><?php echo  $errors['no_of_sl_coaches'] ?></small>
   </div>
   <input type="submit" name="submit" value="Submit" class="btn btn-primary">
 </div>
 </form>
 </div>
+<?php include('footer.php'); ?>

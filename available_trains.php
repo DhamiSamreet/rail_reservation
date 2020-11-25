@@ -24,13 +24,22 @@
   <li class="list-group-item d-flex justify-content-between align-items-center">
     AC   seats
     <span class="badge badge-primary badge-pill">  Seats left:<?php echo 18*$_SESSION['ac_coaches']-$_SESSION['ac_seats'] ?></span>
-    <span><form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST"><input type="submit" name="ac" value="Book" class="btn btn-primary"></form></span>
+    <?php if((18*$_SESSION['ac_coaches']-$_SESSION['ac_seats'])<$_SESSION['num_pass']){ ?>
+    <span class="badge badge-primary badge-pill">Cannot Book</span>
+    <?php }else{ ?>
+        <span><form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST"><input type="submit" name="ac" value="Book" class="btn btn-primary"></form></span>
+    <?php } ?>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     Sleeper seats
     <span class="badge badge-primary badge-pill">Seats left: <?php echo 24*$_SESSION['sl_coaches']-$_SESSION['sl_seats'] ?></span>
-    <span><form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST"><input type="submit" name="sl" value="Book" class="btn btn-primary"></form></span>
+    <?php if((24*$_SESSION['sl_coaches']-$_SESSION['sl_seats'])<$_SESSION['num_pass']){ ?>
+    <span class="badge badge-primary badge-pill">Cannot Book</span>
+    <?php }else{ ?>
+        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST"><input type="submit" name="sl" value="Book" class="btn btn-primary"></form>
+    <?php } ?>
   </li>
 </ul>
 </div>
 </div>
+<?php include('footer.php'); ?>

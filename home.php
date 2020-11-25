@@ -66,7 +66,7 @@ require_once "config.php";
   	<form class="form_class" action="" method="POST">
   	<div class="form-group">
 		<label>Choose Your Date of Journey</label>
-		<input type="date" name="doj" class="form-control" value="">
+		<input type="date" name="doj" class="form-control" value="" min="<?php echo date("Y-m-d") ?>">
 		<small id="emailHelp" class="form-text text-muted">something can be printed</small>
   	</div>
   	<div class="form-group">

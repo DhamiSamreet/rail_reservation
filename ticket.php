@@ -94,7 +94,7 @@ h1
 
 .row{overflow: hidden}
 
-.card
+.card1
 {
   display: table-row;
   width: 49%;
@@ -257,10 +257,12 @@ h1
 </style>
 </head>
 <body>
+
 <section class="container">
+<?php include('header.php'); ?>
 <h1>Tickets</h1>
-  <div class="row">
-    <article class="card fl-left">
+  <div>
+    <article class="card1">
       <section class="date">
         <time datetime="doj">
           <span><?php echo "$day" ?></span><span> <?php echo "$month $year" ?> </span>
@@ -277,7 +279,6 @@ h1
             <span> <?php echo $passenger['name']."\t\t".$passenger['gender']."\t".$passenger['age']."\t".$passenger['coachno']."\t".$passenger['berthno']."\t".$passenger['berthtype']
              ?></span>
            <?php } ?>
-           
          </time>
         </div>
         <div class="even-info">
@@ -291,5 +292,45 @@ h1
     </article>
   </div>
 </div>
-</body>
-</html>
+<div class="card text-center">
+  <div class="card-header">
+  <?php echo $tno."-".$trainname ?>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Journey Date: <?php echo "$day $month $year" ?></h5>
+    <p class="card-text">Ticket Generated: <?php echo $created ?></p>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+    <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Age</th>
+      <th scope="col">Coach No.</th>
+      <th scope="col">Berth No.</th>
+      <th scope="col">Berth Type</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php $x=1;foreach ($passengers as $passenger){ ?>
+    <tr>
+      <th scope="row"><?php echo $x++ ?></th>
+      <td><?php echo $passenger['name'] ?></td>
+      <td><?php echo $passenger['gender'] ?></td>
+      <td><?php echo $passenger['age'] ?></td>
+      <td><?php echo $passenger['coachno'] ?></td>
+      <td><?php echo $passenger['berthno'] ?></td>
+      <td><?php echo $passenger['berthtype'] ?></td>
+    </tr>
+  <?php } ?>
+    </tbody>
+</table>
+<a href="logout.php" class="btn btn-primary">Logout</a>
+<a href="home.php" class="btn btn-primary">Book Another Ticket</a>
+<a href="#" class="btn btn-primary">Print</a>
+  </div>
+  <div class="card-footer text-muted">
+  Always carry this ticket while travelling
+  </div>
+</div>
+<?php include('footer.php'); ?>

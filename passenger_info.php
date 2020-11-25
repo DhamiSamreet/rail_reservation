@@ -6,12 +6,14 @@
  }
  require_once "config.php";
  $no_of_passengers=$_SESSION['num_pass'];
- $errors = array('name' => '', 'age' => '', 'gender' => '');
+ $check=TRUE;
+ $errors = array('name' => '', 'age' => '', 'gender' => '', 'pid'=>'');
  if(isset($_POST['submit'])){
     for ($x = 1; $x <= $no_of_passengers; $x++){
     echo $_POST['name'.$x];
     echo $_POST['gender'.$x];
     echo $_POST['age'.$x];
+    echo $_POST['pid'.$x];
     //echo print_r($_POST);
     // check email
     
@@ -25,6 +27,9 @@
     if(empty($_POST['gender'.$x])){
        $errors['gender'] = 'Please choose gender of all the passengers';
    } 
+   if(empty($_POST['pid'.$x])){
+    $errors['pid'] = 'All IDs are not entered';
+} 
 }
 function berthtypeac(int $num){
     if($num%6==1 || $num%6==2){
@@ -83,19 +88,22 @@ function berthtypesl(int $num){
                     $name = mysqli_real_escape_string($link, $_POST['name'.$x]);
                     $age = mysqli_real_escape_string($link, $_POST['age'.$x]);
                     $gender = mysqli_real_escape_string($link, $_POST['gender'.$x]);
+                    $pid= mysqli_real_escape_string($link, $_POST['pid'.$x]);
                     $coach="AC".$coachno;
                     $sql = "CALL insertPass(?,?,?,?,?,?,?,?)";
                     $call = mysqli_prepare($link, $sql);
-                    mysqli_stmt_bind_param($call, 'iissisis', $x,$pnr,$name,$gender,$age,$coach,$berthno,$berthtype);
+                    mysqli_stmt_bind_param($call, 'iissisis', $pid,$pnr,$name,$gender,$age,$coach,$berthno,$berthtype);
                     if(mysqli_stmt_execute($call)){
                         echo "Query successful";
                         //header('Location: .php');
                     } else {
                         echo 'query error: '. mysqli_error($link);
+                        $check=FALSE;
                     }
                 }
             } else {
                 echo 'query error: '. mysqli_error($link);
+                $check=FALSE;
             }
         }
         else{
@@ -115,18 +123,27 @@ function berthtypesl(int $num){
                     $name = mysqli_real_escape_string($link, $_POST['name'.$x]);
                     $age = mysqli_real_escape_string($link, $_POST['age'.$x]);
                     $gender = mysqli_real_escape_string($link, $_POST['gender'.$x]);
+                    $pid= mysqli_real_escape_string($link, $_POST['pid'.$x]);
                     $coach="SL".$coachno;
                     $sql = "CALL insertPass(?,?,?,?,?,?,?,?)";
                     $call = mysqli_prepare($link, $sql);
-                    mysqli_stmt_bind_param($call, 'iissisis', $x,$pnr,$name,$gender,$age,$coach,$berthno,$berthtype);
+                    mysqli_stmt_bind_param($call, 'iissisis', $pid,$pnr,$name,$gender,$age,$coach,$berthno,$berthtype);
                     if(mysqli_stmt_execute($call)){
                         echo "Query successful";
                         //header('Location: .php');
                     } else {
                         echo 'query error: '. mysqli_error($link);
+                        $check=FALSE;
                     }
                 }
             }
+            else{
+                echo 'query error: '. mysqli_error($link);
+                $check=FALSE;
+            }
+        }
+        if($check){
+            header('location: ticket.php');
         }
     }
 }
@@ -147,11 +164,15 @@ function berthtypesl(int $num){
   <?php for ($x = 1; $x <= $no_of_passengers; $x++){ ?>
   <h4>Passenger <?php echo $x ?></h4>
     <div class="form-row">
+    <div class="form-group col-md-2">
+      <label>ID</label>
+      <input type="number" class="form-control" id=<?php echo "pid".$x ?> name=<?php echo "pid".$x ?>>
+    </div>
     <div class="form-group col-md-6">
       <label>Name</label>
       <input type="text" class="form-control" id=<?php echo "name".$x ?> name=<?php echo "name".$x ?>>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <label>Gender</label>
       <select id=<?php echo "gender".$x ?> name=<?php echo "gender".$x ?> class="form-control">
         <option selected>Choose...</option>
@@ -160,7 +181,7 @@ function berthtypesl(int $num){
         <option value="Other">Other</option>
       </select>
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-1">
       <label>Age</label>
       <input type="number" class="form-control" id=<?php echo "age".$x ?> name=<?php echo "age".$x ?>>
     </div>
